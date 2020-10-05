@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: teastore
-      run: teastore-rabbitmq
+      run: teastore-kieker-rabbitmq
   template:
     metadata:
       labels:
