@@ -204,6 +204,7 @@ kind: Deployment
 metadata:
   name: teastore-recommender
 spec:
+  replicas: 0 #recommender 
   selector:
     matchLabels:
       app: teastore
@@ -214,7 +215,6 @@ spec:
         app: teastore
         run: teastore-recommender
     spec:
-      replicas: 0 #recommender 
       containers:
         - name: teastore-recommender
           image: descartesresearch/teastore-recommender
