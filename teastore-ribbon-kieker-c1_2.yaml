@@ -163,10 +163,10 @@ spec:
               value: "teastore-kieker-rabbitmq"
           resources: #auth
             requests:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "200m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "200m"
 ---
 apiVersion: apps/v1
@@ -237,11 +237,11 @@ spec:
               value: "teastore-kieker-rabbitmq"
           resources: #recommender 
             requests:
-              memory: "256Mi"
-              cpu: "200m"
+              memory: "512Mi"
+              cpu: "300m"
             limits:
-              memory: "256Mi"
-              cpu: "200m"
+              memory: "512Mi"
+              cpu: "300m"
 ---
 apiVersion: apps/v1
 kind: Deployment
