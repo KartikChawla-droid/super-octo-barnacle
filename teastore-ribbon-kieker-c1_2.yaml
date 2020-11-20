@@ -201,10 +201,10 @@ spec:
           resources: #image 
             requests:
               memory: "2048Mi"
-              cpu: "400m"
+              cpu: "200m"
             limits:
               memory: "2048Mi"
-              cpu: "400m"
+              cpu: "200m"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -275,10 +275,10 @@ spec:
           resources: #webui
             requests:
               memory: "512Mi"
-              cpu: "400m"
+              cpu: "200m"
             limits:
               memory: "512Mi"
-              cpu: "400m"
+              cpu: "200m"
 ---
 apiVersion: v1
 kind: Service
