@@ -22,10 +22,10 @@ spec:
             - containerPort: 3306
           resources: #db
             requests:
-              memory: "3Mi"
+              memory: "64Mi"
               cpu: "100m"
             limits:
-              memory: "3Mi"
+              memory: "64Mi"
               cpu: "100m"
 ---
 apiVersion: v1
@@ -70,10 +70,10 @@ spec:
               value: "true"
           resources: #registry
             requests:
-              memory: "3Mi"
+              memory: "64Mi"
               cpu: "200m"
             limits:
-              memory: "3Mi"
+              memory: "64Mi"
               cpu: "200m"
 ---
 apiVersion: v1
@@ -163,10 +163,10 @@ spec:
               value: "teastore-kieker-rabbitmq"
           resources: #auth
             requests:
-              memory: "3Mi"
+              memory: "64Mi"
               cpu: "200m"
             limits:
-              memory: "3Mi"
+              memory: "64Mi"
               cpu: "200m"
 ---
 apiVersion: apps/v1
@@ -200,10 +200,10 @@ spec:
               value: "teastore-kieker-rabbitmq"
           resources: #image 
             requests:
-              memory: "2Mi"
+              memory: "32Mi"
               cpu: "100m"
             limits:
-              memory: "2Mi"
+              memory: "32Mi"
               cpu: "100m"
 ---
 apiVersion: apps/v1
@@ -237,10 +237,10 @@ spec:
               value: "teastore-kieker-rabbitmq"
           resources: #recommender 
             requests:
-              memory: "2Mi"
+              memory: "32Mi"
               cpu: "100m"
             limits:
-              memory: "2Mi"
+              memory: "32Mi"
               cpu: "100m"
 ---
 apiVersion: apps/v1
@@ -274,10 +274,10 @@ spec:
               value: "teastore-kieker-rabbitmq"
           resources: #webui
             requests:
-              memory: "2Mi"
+              memory: "32Mi"
               cpu: "200m"
             limits:
-              memory: "3Mi"
+              memory: "64Mi"
               cpu: "200m"
 ---
 apiVersion: v1
