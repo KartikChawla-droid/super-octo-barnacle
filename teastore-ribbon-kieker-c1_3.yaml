@@ -127,10 +127,10 @@ spec:
           resources: #persistence 
             requests:
               memory: ".5Gi"
-              cpu: "300m"
+              cpu: "400m"
             limits:
               memory: ".5Gi"
-              cpu: "300m"
+              cpu: "400m"
 ---       
 apiVersion: apps/v1
 kind: Deployment
@@ -201,10 +201,10 @@ spec:
           resources: #image 
             requests:
               memory: ".5Gi"
-              cpu: "300m"
+              cpu: "400m"
             limits:
               memory: ".5Gi"
-              cpu: "300m"
+              cpu: "400m"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -275,10 +275,10 @@ spec:
           resources: #webui
             requests:
               memory: ".5Gi"
-              cpu: "300m"
+              cpu: "400m"
             limits:
               memory: "1Gi"
-              cpu: "300m"
+              cpu: "400m"
 ---
 apiVersion: v1
 kind: Service
