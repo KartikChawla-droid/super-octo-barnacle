@@ -23,10 +23,10 @@ spec:
           resources: #db
             requests:
               memory: "512Mi"
-              cpu: "100m"
+              cpu: "1000m"
             limits:
               memory: "512Mi"
-              cpu: "100m"
+              cpu: "1000m"
 ---
 apiVersion: v1
 kind: Service
