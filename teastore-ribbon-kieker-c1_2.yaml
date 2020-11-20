@@ -71,10 +71,10 @@ spec:
           resources: #registry
             requests:
               memory: "128Mi"
-              cpu: "200m"
+              cpu: "100m"
             limits:
               memory: "128Mi"
-              cpu: "200m"
+              cpu: "100m"
 ---
 apiVersion: v1
 kind: Service
@@ -164,10 +164,10 @@ spec:
           resources: #auth
             requests:
               memory: "64Mi"
-              cpu: "200m"
+              cpu: "150m"
             limits:
               memory: "64Mi"
-              cpu: "200m"
+              cpu: "150m"
 ---
 apiVersion: apps/v1
 kind: Deployment
