@@ -166,7 +166,7 @@ spec:
               memory: "3Gi"
               cpu: "2000m"
             limits:
-              memory: "3GMi"
+              memory: "3Gi"
               cpu: "2000m"
 ---
 apiVersion: apps/v1
