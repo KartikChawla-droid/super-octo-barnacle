@@ -23,7 +23,7 @@ spec:
           resources: #db
             requests:
               memory: ".1Gi"
-              cpu: "0.1"
+              cpu: "0.05"
             limits:
               memory: ".1Gi"
               cpu: "0.1"
@@ -71,10 +71,10 @@ spec:
           resources: #registry
             requests:
               memory: "256Mi"
-              cpu: "0.1"
+              cpu: "0.01"
             limits:
               memory: "256Mi"
-              cpu: "0.2"
+              cpu: "0.15"
 ---
 apiVersion: v1
 kind: Service
@@ -127,10 +127,10 @@ spec:
           resources: #persistence 
             requests:
               memory: ".5Gi"
-              cpu: "0.2"
+              cpu: "0.5"
             limits:
               memory: ".5Gi"
-              cpu: "0.2"
+              cpu: "0.6"
 ---       
 apiVersion: apps/v1
 kind: Deployment
@@ -167,7 +167,7 @@ spec:
               cpu: "0.2"
             limits:
               memory: "1Gi" #512
-              cpu: "0.2"
+              cpu: "0.5"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -201,10 +201,10 @@ spec:
           resources: #image 
             requests:
               memory: "1Gi"
-              cpu: "0.6"
+              cpu: "0.3"
             limits:
               memory: "1Gi"
-              cpu: "0.6"
+              cpu: "1"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -241,7 +241,7 @@ spec:
               cpu: "0.1"
             limits:
               memory: ".5Gi"
-              cpu: "0.2"
+              cpu: "0.25"
 ---
 apiVersion: apps/v1
 kind: Deployment
