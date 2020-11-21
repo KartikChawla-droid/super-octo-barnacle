@@ -1,0 +1,298 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-db
+  namespace: teastore
+spec:
+  replicas: 1 #db
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-db
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-db
+    spec:
+      containers:
+        - name: teastore-db
+          image: descartesresearch/teastore-db
+          ports:
+            - containerPort: 3306
+          resources: #db
+            requests:
+              memory: ".1Gi"
+              cpu: "0.05"
+            limits:
+              memory: ".1Gi"
+              cpu: "0.1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-db
+  namespace: teastore
+  labels:
+    app: teastore
+    run: teastore-db
+spec:
+  ports:
+    - port: 3306
+      protocol: TCP
+  selector:
+    run: teastore-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-registry
+  namespace: teastore
+spec:
+  replicas: 2 #registry
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-registry
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-registry
+    spec:
+      containers:
+        - name: teastore-registry
+          image: descartesresearch/teastore-registry
+          ports:
+            - containerPort: 8080
+          env:
+            - name: USE_POD_IP
+              value: "true"
+          resources: #registry
+            requests:
+              memory: "256Mi"
+              cpu: "0.01"
+            limits:
+              memory: "256Mi"
+              cpu: "0.15"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-registry
+  namespace: teastore
+  labels:
+    app: teastore
+    run: teastore-registry
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+  selector:
+    run: teastore-registry
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-persistence
+  namespace: teastore
+spec:
+  replicas: 1 #persistence 
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-persistence
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-persistence
+    spec:
+      containers:
+        - name: teastore-persistence
+          image: descartesresearch/teastore-persistence
+          ports:
+            - containerPort: 8080
+          env:
+            - name: USE_POD_IP
+              value: "true"
+            - name: REGISTRY_HOST
+              value: "teastore-registry"
+            - name: DB_HOST
+              value: "teastore-db"
+            - name: DB_PORT
+              value: "3306"
+            - name: RABBITMQ_HOST
+              value: "teastore-kieker-rabbitmq"
+          resources: #persistence 
+            requests:
+              memory: ".5Gi"
+              cpu: "0.5"
+            limits:
+              memory: ".5Gi"
+              cpu: "0.6"
+---       
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-auth
+  namespace: teastore
+spec:
+  replicas: 2 #auth
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-auth
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-auth
+    spec:
+      containers:
+        - name: teastore-auth
+          image: descartesresearch/teastore-auth
+          ports:
+            - containerPort: 8080
+          env:
+            - name: USE_POD_IP
+              value: "true"
+            - name: REGISTRY_HOST
+              value: "teastore-registry"
+            - name: RABBITMQ_HOST
+              value: "teastore-kieker-rabbitmq"
+          resources: #auth
+            requests:
+              memory: "1Gi" #512
+              cpu: "0.2"
+            limits:
+              memory: "1Gi" #512
+              cpu: "0.5"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-image
+  namespace: teastore
+spec:
+  replicas: 1 #image
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-image
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-image
+    spec:
+      containers:
+        - name: teastore-image
+          image: descartesresearch/teastore-image
+          ports:
+            - containerPort: 8080
+          env:
+            - name: USE_POD_IP
+              value: "true"
+            - name: REGISTRY_HOST
+              value: "teastore-registry"
+            - name: RABBITMQ_HOST
+              value: "teastore-kieker-rabbitmq"
+          resources: #image 
+            requests:
+              memory: "1Gi"
+              cpu: "0.3"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-recommender
+  namespace: teastore
+spec:
+  replicas: 1 #recommender 
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-recommender
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-recommender
+    spec:
+      containers:
+        - name: teastore-recommender
+          image: descartesresearch/teastore-recommender
+          ports:
+            - containerPort: 8080
+          env:
+            - name: USE_POD_IP
+              value: "true"
+            - name: REGISTRY_HOST
+              value: "teastore-registry"
+            - name: RABBITMQ_HOST
+              value: "teastore-kieker-rabbitmq"
+          resources: #recommender 
+            requests:
+              memory: ".5Gi"
+              cpu: "0.1"
+            limits:
+              memory: ".5Gi"
+              cpu: "0.25"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-webui
+  namespace: teastore
+spec:
+  replicas: 1 #webui
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-webui
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-webui
+    spec:
+      containers:
+        - name: teastore-webui
+          image: descartesresearch/teastore-webui
+          ports:
+            - containerPort: 8080
+          env:
+            - name: USE_POD_IP
+              value: "true"
+            - name: REGISTRY_HOST
+              value: "teastore-registry"
+            - name: RABBITMQ_HOST
+              value: "teastore-kieker-rabbitmq"
+          resources: #webui
+            requests:
+              memory: "1Gi"
+              cpu: "0.5"
+            limits:
+              memory: "2Gi"
+              cpu: "0.5"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-webui
+  namespace: teastore
+  labels:
+    app: teastore
+    run: teastore-webui
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 30080
+      protocol: TCP
+  selector:
+    run: teastore-webui
