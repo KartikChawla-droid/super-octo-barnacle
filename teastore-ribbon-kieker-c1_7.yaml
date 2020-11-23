@@ -22,10 +22,10 @@ spec:
             - containerPort: 3306
           resources: #db
             requests:
-              memory: ".1Gi"
+              memory: ".5Gi"
               cpu: "0.05"
             limits:
-              memory: "1Gi"
+              memory: "2Gi"
               cpu: "1"
 ---
 apiVersion: v1
